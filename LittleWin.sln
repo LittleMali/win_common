@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetworkUtils", "NetworkUtil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonUtils", "CommonUtils\CommonUtils.vcxproj", "{3EC56E81-ED23-430E-AE3E-7178D20F0553}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleProxyApp", "LittleProxyApp\LittleProxyApp.vcxproj", "{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -45,6 +47,14 @@ Global
 		{3EC56E81-ED23-430E-AE3E-7178D20F0553}.Release|x64.Build.0 = Release|x64
 		{3EC56E81-ED23-430E-AE3E-7178D20F0553}.Release|x86.ActiveCfg = Release|Win32
 		{3EC56E81-ED23-430E-AE3E-7178D20F0553}.Release|x86.Build.0 = Release|Win32
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Debug|x64.ActiveCfg = Debug|x64
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Debug|x64.Build.0 = Debug|x64
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Debug|x86.ActiveCfg = Debug|Win32
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Debug|x86.Build.0 = Debug|Win32
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Release|x64.ActiveCfg = Release|x64
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Release|x64.Build.0 = Release|x64
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Release|x86.ActiveCfg = Release|Win32
+		{EF76401C-C70D-4A7D-BD18-2777BDEB08F8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
