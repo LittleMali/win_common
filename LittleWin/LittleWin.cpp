@@ -3,10 +3,13 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include "..\CommonUtils\Log.h"
 
 int main()
 {
-    std::cout << "this is little's win project" << std::endl;
+    std::cout << "this is little's win32 project" << std::endl;
+
+    DBGLOGW(L"%d", 123);
     return 0;
 }
 

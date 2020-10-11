@@ -5,6 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleWin", "LittleWin\LittleWin.vcxproj", "{8C73FEEE-1EAD-42B6-B9CF-6031CDF4E4CA}"
 	ProjectSection(ProjectDependencies) = postProject
+		{3EC56E81-ED23-430E-AE3E-7178D20F0553} = {3EC56E81-ED23-430E-AE3E-7178D20F0553}
 		{487C6AAA-16E9-4FA1-8E7A-57127AC369B6} = {487C6AAA-16E9-4FA1-8E7A-57127AC369B6}
 	EndProjectSection
 EndProject

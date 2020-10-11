@@ -12,3 +12,7 @@
 
 
 // TODO: reference additional headers your program requires here
+
+#include <windows.h>
+#include "string"
+#include "atlstr.h"

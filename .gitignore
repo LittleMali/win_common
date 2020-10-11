@@ -13,3 +13,7 @@
 *.lib
 
 
+*.ipch
+*.ipdb
+*.opendb
+*.iobj
