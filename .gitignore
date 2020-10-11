@@ -1,0 +1,15 @@
+/Debug
+
+*.pdb
+*.idb
+*.pch
+*.tlog
+*.log
+*.obj
+*.db
+*.ilk
+*.suo
+*.exe
+*.lib
+
+
