@@ -4,12 +4,19 @@
 #include "stdafx.h"
 #include <iostream>
 #include "..\CommonUtils\Log.h"
+#include "..\CommonUtils\Singleton.h"
+#include "..\LspOperate\LspOperate.h"
+
 
 int main()
 {
     std::cout << "this is little's win32 project" << std::endl;
 
     DBGLOGW(L"%d", 123);
+
+    CLspOperate::Instance()->EnumLspInfo();
+
+    getchar();
     return 0;
 }
 

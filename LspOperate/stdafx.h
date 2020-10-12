@@ -12,3 +12,7 @@
 
 
 // TODO: reference additional headers your program requires here
+#include <Ws2spi.h>
+#include <windows.h>
+#include "string"
+#include <vector>
