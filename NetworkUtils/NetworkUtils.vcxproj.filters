@@ -30,12 +30,18 @@
     <ClInclude Include="IHttpInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IPV6Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HttpClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IPV6Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
