@@ -36,6 +36,9 @@
     <ClInclude Include="ProcessUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SystemUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProcessUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
