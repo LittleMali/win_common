@@ -17,6 +17,7 @@ int main()
     CLspOperate::Instance()->EnumLspInfo();
     BOOL bExits = CLspOperate::Instance()->IsLspExist(LSP_NAME);
     BOOL bInstall = CLspOperate::Instance()->InstallLsp();
+    CLspOperate::Instance()->UnInstallLsp();
 
     getchar();
     return 0;

@@ -7,6 +7,7 @@
 #include <shlwapi.h>
 #include <rpcdce.h>
 #include <sporder.h>
+#include "..\CommonUtils\ProcessUtils.h"
 
 CLspOperate::CLspOperate()
 {
@@ -228,6 +229,9 @@ BOOL CLspOperate::InstallLsp()
         return FALSE;
     }
 
+    // 协议链的安装是用protocolChianGuid，一次性安装了vecBaseProtocols。
+    // 也就是说整个vecBaseProtocols才视为协议链。同样，卸载的时候也是一次就卸干净了。
+    // 并不是像打印出来的那样，看着像有n个协议链。
     nError = 0;
     nRet = ::WSCInstallProvider(&protocolChianGuid, szLspDllPath, &vecBaseProtocols[0], vecBaseProtocols.size(), &nError);
     if (nError == SOCKET_ERROR)
@@ -276,6 +280,68 @@ BOOL CLspOperate::InstallLsp()
     }
 
     return TRUE;
+}
+
+void CLspOperate::UnInstallLsp()
+{
+    auto protocols = GetProtocols();
+    GUID layeredProtocolGuid = LSP_GUID;
+    DWORD dwLayeredCatalogEntryId = 0;
+    for (auto item : protocols)
+    {
+        if (0 == memcmp(&item.ProviderId, &layeredProtocolGuid, sizeof(GUID)))
+        {
+            dwLayeredCatalogEntryId = item.dwCatalogEntryId;
+            break;
+        }
+    }
+
+    // 找到协议链并卸载
+    for (auto item : protocols)
+    {
+        if (item.ProtocolChain.ChainLen > 1 && item.ProtocolChain.ChainEntries[0] == dwLayeredCatalogEntryId)
+        {
+            int nError = 0;
+            int nRet = ::WSCDeinstallProvider(&item.ProviderId, &nError);
+            if (nRet == SOCKET_ERROR)
+            {
+                TCHAR szGuidString[40] = { 0 };
+                StringFromGUID2(item.ProviderId, (LPOLESTR)&szGuidString, 39);
+                DBGLOGW(L"uninstall lsp failed, guid=%s, error=%d.", szGuidString, nError);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    // 卸载分层协议
+    int nError = 0;
+    int nRet = ::WSCDeinstallProvider(&layeredProtocolGuid, &nError);
+    if (nRet == SOCKET_ERROR)
+    {
+        TCHAR szGuidString[40] = { 0 };
+        StringFromGUID2(layeredProtocolGuid, (LPOLESTR)&szGuidString, 39);
+        DBGLOGW(L"uninstall lsp failed, guid=%s, error=%d.", szGuidString, nError);
+    }
+}
+
+void CLspOperate::ResetLsp()
+{
+    wchar_t szSysPath[MAX_PATH + 2] = { 0 };
+    UINT uRet = ::GetSystemDirectoryW(szSysPath, MAX_PATH);
+    if (uRet != 0)
+    {
+        ::PathAppend(szSysPath, L"netsh.exe");
+    }
+    else
+    {
+        wcscpy_s(szSysPath, MAX_PATH, L"netsh.exe");
+    }
+
+    const std::wstring strCmdline = L"winsock reset";
+    BOOL bRet = ProcessUtils::RunExe(szSysPath, strCmdline);
 }
 
 std::vector<WSAPROTOCOL_INFOW> CLspOperate::GetProtocolsByApi()

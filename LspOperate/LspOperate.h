@@ -22,13 +22,12 @@ public:
     CLspOperate();
     virtual ~CLspOperate() { }
 
-    GUID GetLspGuid();
-
     void EnumLspInfo();
     std::vector<WSAPROTOCOL_INFOW> GetProtocols();
     BOOL IsLspExist(const std::wstring& strLspName);
     BOOL InstallLsp();
-    BOOL UnInstallLsp();
+    void UnInstallLsp();
+    void ResetLsp();
 
 private:
     std::vector<WSAPROTOCOL_INFOW> GetProtocolsByApi();
