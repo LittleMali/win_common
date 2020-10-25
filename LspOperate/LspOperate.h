@@ -5,8 +5,8 @@
 #include <Ws2spi.h>
 #include <algorithm>
 
-#define LSP_NAME    L"QMProxyAccLsp"
-#define LSP_MODULE  L"QMProxyAccLsp.dll"
+#define LSP_NAME    L"LittleLsp"
+#define LSP_MODULE  L"LittleLsp.dll"
 
 
 
