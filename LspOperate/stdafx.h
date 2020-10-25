@@ -16,3 +16,7 @@
 #include <windows.h>
 #include "string"
 #include <vector>
+
+
+#pragma comment (lib, "Rpcrt4.lib")
+#pragma comment (lib, "Ws2_32.lib")

@@ -15,6 +15,8 @@ int main()
     DBGLOGW(L"%d", 123);
 
     CLspOperate::Instance()->EnumLspInfo();
+    BOOL bExits = CLspOperate::Instance()->IsLspExist(LSP_NAME);
+    BOOL bInstall = CLspOperate::Instance()->InstallLsp();
 
     getchar();
     return 0;
