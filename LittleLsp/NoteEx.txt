@@ -1,0 +1,6 @@
+DllMain
+	InitDllDelay
+		CProxyMgr.Init()
+		ConnectEx.StartWork();
+		BlockTcp.StartWork();
+		TcpLocal.Init()

@@ -18,6 +18,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleProxyApp", "LittlePro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LspOperate", "LspOperate\LspOperate.vcxproj", "{649AC92D-3619-442A-8295-40D92FC681B9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleLsp", "LittleLsp\LittleLsp.vcxproj", "{E2215319-150D-435A-A0A6-7F649814268B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{649AC92D-3619-442A-8295-40D92FC681B9} = {649AC92D-3619-442A-8295-40D92FC681B9}
+		{3EC56E81-ED23-430E-AE3E-7178D20F0553} = {3EC56E81-ED23-430E-AE3E-7178D20F0553}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -66,6 +72,14 @@ Global
 		{649AC92D-3619-442A-8295-40D92FC681B9}.Release|x64.Build.0 = Release|x64
 		{649AC92D-3619-442A-8295-40D92FC681B9}.Release|x86.ActiveCfg = Release|Win32
 		{649AC92D-3619-442A-8295-40D92FC681B9}.Release|x86.Build.0 = Release|Win32
+		{E2215319-150D-435A-A0A6-7F649814268B}.Debug|x64.ActiveCfg = Debug|x64
+		{E2215319-150D-435A-A0A6-7F649814268B}.Debug|x64.Build.0 = Debug|x64
+		{E2215319-150D-435A-A0A6-7F649814268B}.Debug|x86.ActiveCfg = Debug|Win32
+		{E2215319-150D-435A-A0A6-7F649814268B}.Debug|x86.Build.0 = Debug|Win32
+		{E2215319-150D-435A-A0A6-7F649814268B}.Release|x64.ActiveCfg = Release|x64
+		{E2215319-150D-435A-A0A6-7F649814268B}.Release|x64.Build.0 = Release|x64
+		{E2215319-150D-435A-A0A6-7F649814268B}.Release|x86.ActiveCfg = Release|Win32
+		{E2215319-150D-435A-A0A6-7F649814268B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
