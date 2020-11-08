@@ -140,11 +140,12 @@ int WSPAPI WSPStartup( WORD wVersionRequested,
 
     // step2: Ìæ»»ÏÂ²ãº¯Êý±í
     g_detourProcTable.lpWSPSocket = WSPSocket;
+    g_detourProcTable.lpWSPCloseSocket = WSPCloseSocket;
+    g_detourProcTable.lpWSPShutdown = WSPShutdown;
     g_detourProcTable.lpWSPSendTo = WSPSendTo;
     g_detourProcTable.lpWSPRecvFrom = WSPRecvFrom;
     g_detourProcTable.lpWSPConnect = WSPConnect;
-    g_detourProcTable.lpWSPCloseSocket = WSPCloseSocket;
-    g_detourProcTable.lpWSPShutdown = WSPShutdown;
+    
 
     lpProcTable->lpWSPSocket = WSPSocketDetour;
     lpProcTable->lpWSPCloseSocket = WSPCloseSocketDetour;

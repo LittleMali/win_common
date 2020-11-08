@@ -1,5 +1,5 @@
 #pragma once
-#include "WS2spi.h"
+#include <WS2spi.h>
 
 SOCKET WSPAPI WSPSocket(
     int af,

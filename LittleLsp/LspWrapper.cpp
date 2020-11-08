@@ -17,6 +17,7 @@ SOCKET WSPAPI WSPSocket(
 {
     return g_nextProcTable.lpWSPSocket(af, type, protocol, lpProtocolInfo, g, dwFlags, lpErrno);
 }
+
 SOCKET WSPAPI WSPSocketDetour(
     int af,
     int type,
@@ -129,9 +130,7 @@ int WSPAPI WSPSendToDetour(
     }
 }
 
-int
-WSPAPI
-WSPRecvFrom(
+int WSPAPI WSPRecvFrom(
     SOCKET s,
     LPWSABUF lpBuffers,
     DWORD dwBufferCount,
@@ -147,6 +146,7 @@ WSPRecvFrom(
 {
     return g_nextProcTable.lpWSPRecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno);
 }
+
 int WSPAPI WSPRecvFromDetour(
     SOCKET s,
     LPWSABUF lpBuffers,
