@@ -7,17 +7,12 @@
 #include "..\CommonUtils\Singleton.h"
 #include "..\LspOperate\LspOperate.h"
 
-
 int main()
 {
     std::cout << "this is little's win32 project" << std::endl;
 
     DBGLOGW(L"%d", 123);
 
-    CLspOperate::Instance()->EnumLspInfo();
-    BOOL bExits = CLspOperate::Instance()->IsLspExist(LSP_NAME);
-    BOOL bInstall = CLspOperate::Instance()->InstallLsp();
-    CLspOperate::Instance()->UnInstallLsp();
 
     getchar();
     return 0;
