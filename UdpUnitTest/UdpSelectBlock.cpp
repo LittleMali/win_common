@@ -1,9 +1,10 @@
 #include "stdafx.h"
+#include "UdpSelectBlock.h"
 
-bool UdpBlockTest()
+bool UdpSelectBlockTest()
 {
     SOCKET s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (s == INVALID_SOCKET)
+    if(s == INVALID_SOCKET)
     {
         DBGLOGW(L"invalid socket");
         return false;
@@ -27,14 +28,38 @@ bool UdpBlockTest()
     int nSendFailCnt = 0, nRecvFailCnt = 0;
     for (int i = 0; i < 100; ++i)
     {
+        fd_set fdWrite;
+        FD_ZERO(&fdWrite);
+        FD_SET(s, &fdWrite);
+
+        nErr = select(0, nullptr, &fdWrite, nullptr, nullptr);
+        DBGLOGW(L"select for write. nErr=%d, last err=%d", nErr, WSAGetLastError());
+        if (nErr == SOCKET_ERROR || 1 != nErr || !FD_ISSET(s, &fdWrite))
+        {
+            nSendFailCnt++;
+            break;
+        }
+        
         char szSendBuf[MAX_PATH] = { 0 };
-        sprintf_s(szSendBuf, MAX_PATH, "udp block test, i=%d", i);
+        sprintf_s(szSendBuf, MAX_PATH, "udp select block test, i=%d", i);
         int nRet = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
         DBGLOGW(L"sendto i=%d, buf len=%d, ret len=%d", i, strlen(szSendBuf), nRet);
         if (nRet == SOCKET_ERROR)
         {
             DBGLOGW(L"sendto failed, i=%d, ret=%d, last err=%d", i, nRet, ::WSAGetLastError());
             nSendFailCnt++;
+            break;
+        }
+
+        fd_set fdRead;
+        FD_ZERO(&fdRead);
+        FD_SET(s, &fdRead);
+
+        nErr = select(0, &fdRead, nullptr, nullptr, nullptr);
+        DBGLOGW(L"select for read. nErr=%d, last err=%d", nErr, WSAGetLastError());
+        if (nErr == SOCKET_ERROR || 1 != nErr || !FD_ISSET(s, &fdRead))
+        {
+            nRecvFailCnt++;
             break;
         }
 
@@ -51,7 +76,7 @@ bool UdpBlockTest()
         }
     }
     DBGLOGW(L"nSendFailCnt=%d, nRecvFailCnt=%d", nSendFailCnt, nRecvFailCnt);
-
+    
     closesocket(s);
     return (nSendFailCnt == 0 && nRecvFailCnt == 0);
 }

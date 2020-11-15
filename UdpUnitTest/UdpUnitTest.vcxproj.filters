@@ -27,6 +27,12 @@
     <ClInclude Include="UpdBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UdpSelectBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UdpSelectNonBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +42,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UpdBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpSelectBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpSelectNonBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

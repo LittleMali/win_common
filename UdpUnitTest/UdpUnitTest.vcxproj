@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UdpSelectBlock.h" />
+    <ClInclude Include="UdpSelectNonBlock.h" />
     <ClInclude Include="UpdBlock.h" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +160,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UdpSelectBlock.cpp" />
+    <ClCompile Include="UdpSelectNonBlock.cpp" />
     <ClCompile Include="UdpUnitTest.cpp" />
     <ClCompile Include="UpdBlock.cpp" />
   </ItemGroup>

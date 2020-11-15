@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "UpdBlock.h"
+#include "UdpSelectBlock.h"
+#include "UdpSelectNonBlock.h"
 
 
 int main()
@@ -12,7 +14,9 @@ int main()
 
     bool bret = false;
     
-    bret = UdpBlockTest();
+    //bret = UdpBlockTest();
+    //bret = UdpSelectBlockTest();
+    bret = UdpSelectNonBlockTest();
 
     WSACleanup();
     getchar();
