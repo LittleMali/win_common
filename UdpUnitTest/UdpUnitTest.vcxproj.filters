@@ -33,6 +33,12 @@
     <ClInclude Include="UdpSelectNonBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsgWnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UdpAsyncSelectNonBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +54,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UdpSelectNonBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsgWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpAsyncSelectNonBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
