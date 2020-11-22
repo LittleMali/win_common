@@ -20,5 +20,7 @@
 #include "..\CommonUtils\Log.h"
 
 #define UDP_SRV_ADDR    "127.0.0.1"
+//#define UDP_SRV_ADDR    "119.29.197.75"
 //#define UDP_SRV_ADDR    "148.70.209.112"
 #define UDP_SRV_PORT    12345
+//#define UDP_SRV_PORT    1207

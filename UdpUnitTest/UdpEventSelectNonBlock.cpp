@@ -46,12 +46,7 @@ bool UdpEventSelectNonBlockTest()
 
     char szSendBuf[MAX_PATH] = { 0 };
     _snprintf_s(szSendBuf, MAX_PATH, "udp event select non block, send i=%d", nSendCnt++);
-
-    for (int i = 0; i < 1000; ++i)
-    {
-        nErr = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
-    }
-    
+    nErr = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
     
     enSockState = SocketState::SocketToRecv;
 
@@ -132,12 +127,6 @@ bool UdpEventSelectNonBlockTest()
                 char szSendBuf[MAX_PATH] = { 0 };
                 _snprintf_s(szSendBuf, MAX_PATH, "udp event select non block, send i = %d", nSendCnt++);
                 nErr = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
-
-                for (int i = 0; i < 1000; ++i)
-                {
-                    nErr = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
-                }
-
                 if (nErr == SOCKET_ERROR)
                 {
                     DBGLOGW(L"sendto failed: %d", ::WSAGetLastError());
