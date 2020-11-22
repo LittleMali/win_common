@@ -6,6 +6,7 @@
 #include "UdpSelectBlock.h"
 #include "UdpSelectNonBlock.h"
 #include "UdpAsyncSelectNonBlock.h"
+#include "UdpEventSelectNonBlock.h"
 
 int main()
 {
@@ -18,8 +19,10 @@ int main()
     //bret = UdpSelectBlockTest();
     //bret = UdpSelectNonBlockTest();
     
-    CUdpAsyncSelectNonBlock udpAsyncSelectNonBlock;
-    bret = udpAsyncSelectNonBlock.Run();
+    //CUdpAsyncSelectNonBlock udpAsyncSelectNonBlock;
+    //bret = udpAsyncSelectNonBlock.Run();
+
+    bret = UdpEventSelectNonBlockTest();
 
     WSACleanup();
     getchar();

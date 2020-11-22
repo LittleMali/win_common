@@ -1,6 +1,10 @@
 #pragma once
 #include "MsgWnd.h"
 
+// 异步select
+// 核心API： WSAAsyncSelect
+// 基于窗口的网络通知，需要创建一个msg wnd并接收网络消息。
+
 class CUdpAsyncSelectNonBlock
     : public CMsgWnd::ISocketCallback
 {
