@@ -15,7 +15,7 @@ int main()
 
     bool bret = false;
     
-    //bret = UdpBlockTest();
+    bret = UdpBlockTest();
     //bret = UdpSelectBlockTest();
     //bret = UdpSelectNonBlockTest();
     
