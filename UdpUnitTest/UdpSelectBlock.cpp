@@ -40,8 +40,8 @@ bool UdpSelectBlockTest()
             break;
         }
         
-        char szSendBuf[MAX_PATH] = { 0 };
-        sprintf_s(szSendBuf, MAX_PATH, "udp select block test, i=%d", i);
+        char szSendBuf[BUF_LEN] = { 0 };
+        sprintf_s(szSendBuf, BUF_LEN, "udp select block test, i=%d", i);
         int nRet = sendto(s, szSendBuf, strlen(szSendBuf), 0, (const sockaddr*)&srvAddr, sizeof(srvAddr));
         DBGLOGW(L"sendto i=%d, buf len=%d, ret len=%d", i, strlen(szSendBuf), nRet);
         if (nRet == SOCKET_ERROR)
@@ -63,7 +63,7 @@ bool UdpSelectBlockTest()
             break;
         }
 
-        char szRecvBuf[MAX_PATH] = { 0 };
+        char szRecvBuf[BUF_LEN] = { 0 };
         sockaddr_in fromAddr = { 0 };
         int nFromLen = sizeof(fromAddr);
         nRet = recvfrom(s, szRecvBuf, sizeof(szRecvBuf), 0, (sockaddr*)&fromAddr, &nFromLen);

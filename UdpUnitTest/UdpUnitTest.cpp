@@ -7,6 +7,7 @@
 #include "UdpSelectNonBlock.h"
 #include "UdpAsyncSelectNonBlock.h"
 #include "UdpEventSelectNonBlock.h"
+#include "UdpOverlappedEvent.h"
 
 int main()
 {
@@ -15,16 +16,21 @@ int main()
 
     bool bret = false;
     
-    bret = UdpBlockTest();
+    //bret = UdpBlockTest();
     //bret = UdpSelectBlockTest();
     //bret = UdpSelectNonBlockTest();
     
     //CUdpAsyncSelectNonBlock udpAsyncSelectNonBlock;
     //bret = udpAsyncSelectNonBlock.Run();
 
-    bret = UdpEventSelectNonBlockTest();
+    //bret = UdpEventSelectNonBlockTest();
+
+    bret = UdpOverlappedEventTest();
 
     WSACleanup();
+
+    printf("press any key to exit!\n");
+
     getchar();
     return 0;
 }

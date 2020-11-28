@@ -23,3 +23,5 @@
 #define UDP_SRV_ADDR    "148.70.209.112"
 #define UDP_SRV_PORT    12345
 //#define UDP_SRV_PORT    1207
+
+#define BUF_LEN 2048
