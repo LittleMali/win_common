@@ -48,6 +48,9 @@
     <ClInclude Include="UdpOverlappedCompletionRoutine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UdpIOCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UdpOverlappedCompletionRoutine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpIOCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
