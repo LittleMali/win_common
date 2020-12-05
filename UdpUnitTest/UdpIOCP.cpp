@@ -25,12 +25,10 @@ unsigned __stdcall UdpIOCPThread(void* param)
             if (dwLastErr == WAIT_TIMEOUT)
             {
                 DWORD dd = dwLastErr;
-                DBGLOGW(L"tid[%d] get queued timeout, last err=%d", dd);
-                // 对于udp回显服务，服务器的应答包丢失了，那么客户端就会wait超时。
-                // 然后，客户端会卡在recv上，因为回显服务器不会再次发包了。我们的客户端程序就挂掉了。
+                DBGLOGW(L"tid[%d] get queued timeout, last err=%d", ::GetCurrentThreadId(), dd);
                 continue;
             }
-            DBGLOGW(L"tid[%d] get queued failed, last err=%d", dwLastErr);
+            DBGLOGW(L"tid[%d] get queued failed, last err=%d", ::GetCurrentThreadId(), dwLastErr);
             break;
         }
 

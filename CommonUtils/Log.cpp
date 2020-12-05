@@ -16,7 +16,7 @@ void OutDbgLogW(LPCWSTR pszFile, LPCWSTR pszFunction, DWORD dwLine, LPCTSTR fmt,
 	va_end(ap);
 
 	var_str.Append(_T("\r\n"));
-	OutputDebugStringW(var_str);
+	OutputDebugStringW(var_str.GetString());
 }
 
 void OutDbgLogA(LPCSTR pszFile, LPCSTR pszFunction, DWORD dwLine, LPCSTR fmt, ...)
@@ -34,5 +34,5 @@ void OutDbgLogA(LPCSTR pszFile, LPCSTR pszFunction, DWORD dwLine, LPCSTR fmt, ..
 	va_end(ap);
 
 	var_str.Append("\r\n");
-	OutputDebugStringA(var_str);
+	OutputDebugStringA(var_str.GetString());
 }
