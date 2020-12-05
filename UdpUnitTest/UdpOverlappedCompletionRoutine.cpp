@@ -15,7 +15,27 @@ static int IsEvnetSingled(HANDLE hEvnet)
     }
 }
 
-bool UdpOverlappedEventTest()
+void CALLBACK SendCompletionROUTINE(
+    IN DWORD dwError,
+    IN DWORD cbTransferred,
+    IN LPWSAOVERLAPPED lpOverlapped,
+    IN DWORD dwFlags)
+{
+    DBGLOGW(L"send completion routine, dwErr=%d, transferred bytes=%d", dwError, cbTransferred);
+}
+
+void CALLBACK RecvCompletionROUTINE(
+    IN DWORD dwError,
+    IN DWORD cbTransferred,
+    IN LPWSAOVERLAPPED lpOverlapped,
+    IN DWORD dwFlags)
+{
+    // MyOverlapped* pMyOp = (MyOverlapped*)lpOverlapped;
+    // 要扩展op结构保存上下文信息，否则，虽然recv成功了，但是我们不知道这对应哪次send。
+    DBGLOGW(L"recv completion routine, dwErr=%d, transferred bytes=%d", dwError, cbTransferred);
+}
+
+bool UdpOverlappedCompletionRoutineTest()
 {
     int i = 0;
 
@@ -39,22 +59,21 @@ bool UdpOverlappedEventTest()
     WSAOVERLAPPED op;
     ZeroMemory(&op, sizeof(op));
 
-    op.hEvent = WSACreateEvent();
-    if (op.hEvent == WSA_INVALID_EVENT) {
+    HANDLE hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+    if (hEvent == NULL)
+    {
         closesocket(s);
         return false;
     }
 
-    DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
-
     DWORD dwLastErr = 0;
-    
+
     for (int i = 0; i < 100; ++i)
     {
         // start sendto
         DBGLOGW(L"start sendto, i=%d", i);
         char szSendBuf[BUF_LEN] = { 0 };
-        sprintf_s(szSendBuf, BUF_LEN, "udp overlapped event test, udp overlapped event test, udp overlapped event test, i=%d", i);
+        sprintf_s(szSendBuf, BUF_LEN, "udp overlapped completion routine test, udp overlapped completion routine test, udp overlapped completion routine test, i=%d", i);
 
         WSABUF wsaSendBuf;
         wsaSendBuf.buf = szSendBuf;
@@ -63,126 +82,99 @@ bool UdpOverlappedEventTest()
         DWORD dwSendCnt = 0;
         nErr = WSASendTo(s, &wsaSendBuf, 1,
             &dwSendCnt, 0, (sockaddr*)&addrSrv, sizeof(addrSrv),
-            &op, nullptr);
+            &op, SendCompletionROUTINE);
         if (nErr == SOCKET_ERROR) {
             dwLastErr = WSAGetLastError();
             if (dwLastErr != WSA_IO_PENDING) {
                 DBGLOGW(L"sendto error, ret=%d, last err=%d", nErr, dwLastErr);
+                CloseHandle(hEvent);
                 closesocket(s);
-                WSACloseEvent(op.hEvent);
                 return false;
             }
             DBGLOGW(L"sendto is waiting for io oper");
-            DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
         }
         else {
-            WSASetEvent(op.hEvent);  // note
             DBGLOGW(L"sendto directly finished, all data has been sent, dwSendCnt=%d", dwSendCnt);
         }
 
         // wait sendto finish
-        nErr = WSAWaitForMultipleEvents(1, &op.hEvent, TRUE, INFINITE, FALSE);
-        if (nErr == WSA_WAIT_FAILED) {
+        nErr = WaitForMultipleObjectsEx(1, &hEvent, TRUE, INFINITE, TRUE);  // ex系列，set alertable
+        if (nErr == WAIT_FAILED) {
             dwLastErr = WSAGetLastError();
             DBGLOGW(L"waitfor sendto error, ret=%d, last err=%d", nErr, dwLastErr);
             closesocket(s);
-            WSACloseEvent(op.hEvent);
+            CloseHandle(hEvent);
             return false;
         }
-        else if (nErr == WSA_WAIT_EVENT_0) {
+        else if (nErr == WAIT_OBJECT_0) {
             DBGLOGW(L"waitfor sendto suc");
+        }
+        else if (nErr == WAIT_IO_COMPLETION)
+        {
+            DBGLOGW(L"ioc ompletion finished");
         }
         else {
             // we wait infinite, this could not happend
         }
 
-        // check sendto result
-        DWORD dwDataTransfer = 0;
-        DWORD dwFlags = 0;
-        nErr = WSAGetOverlappedResult(s, &op, &dwDataTransfer, TRUE, &dwFlags);
-        if (nErr == FALSE) {
-            dwLastErr = WSAGetLastError();
-            DBGLOGW(L"get overlapped sendto result error, ret=%d, last err=%d", nErr, dwLastErr);
-            closesocket(s);
-            WSACloseEvent(op.hEvent);
-            return false;
-        }
-        else {
-            DBGLOGW(L"data transferred bytes cnt=%d, sendto buf len=%d", dwDataTransfer, wsaSendBuf.len);
-        }
-
-        DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
-        WSAResetEvent(op.hEvent);
-
         // we can recvfrom now
         sockaddr_in addrFrom = { 0 };
         int nAddrFromLen = sizeof(addrFrom);
+
+        ZeroMemory(&op, sizeof(op));
 
         char szRecvBuf[BUF_LEN] = { 0 };
         WSABUF wsaRecvBuf;
         wsaRecvBuf.buf = szRecvBuf;
         wsaRecvBuf.len = sizeof(szRecvBuf);
         DWORD dwRecvLen = 0;
-        dwFlags = 0;
+        DWORD dwFlags = 0;
         nErr = WSARecvFrom(s, &wsaRecvBuf, 1,
             &dwRecvLen, &dwFlags, (sockaddr*)&addrFrom, &nAddrFromLen,
-            &op, nullptr);
+            &op, RecvCompletionROUTINE);
 
         if (nErr == SOCKET_ERROR) {
             dwLastErr = WSAGetLastError();
             if (dwLastErr != WSA_IO_PENDING) {
                 DBGLOGW(L"recvfrom error, ret=%d, last err=%d", nErr, dwLastErr);
                 closesocket(s);
-                WSACloseEvent(op.hEvent);
+                CloseHandle(hEvent);
                 return false;
             }
             DBGLOGW(L"recvfrom is waiting for io oper");
-            DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
-            DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
+            DBGLOGW(L"check event singled: %d", IsEvnetSingled(hEvent));
         }
         else {
-            WSASetEvent(op.hEvent);
+            //SetEvent(hEvent);
             DBGLOGW(L"recvfrom directly finished, all data has been recved, dwRecvLen=%d", dwRecvLen);
         }
 
         // waitfor recvfrom finished
-        nErr = WSAWaitForMultipleEvents(1, &op.hEvent, TRUE, INFINITE, FALSE);
-        if (nErr == WSA_WAIT_FAILED) {
+        nErr = WaitForMultipleObjectsEx(1, &hEvent, TRUE, INFINITE, TRUE);
+        DBGLOGW(L"check event singled: %d", IsEvnetSingled(hEvent));
+
+        if (nErr == WAIT_FAILED) {
             dwLastErr = WSAGetLastError();
             DBGLOGW(L"waitfor recvfrom error, ret=%d, last err=%d", nErr, dwLastErr);
             closesocket(s);
-            WSACloseEvent(op.hEvent);
+            CloseHandle(hEvent);
             return false;
         }
-        else if (nErr == WSA_WAIT_EVENT_0) {
+        else if (nErr == WAIT_OBJECT_0) {
             DBGLOGW(L"waitfor recvfrom suc");
+        }
+        else if (nErr == WAIT_IO_COMPLETION)
+        {
+            DBGLOGW(L"ioc ompletion finished");
         }
         else {
             // we wait infinite, this could not happend
         }
-
-        // get recv result
-        dwDataTransfer = 0;
-        dwFlags = 0;
-        nErr = WSAGetOverlappedResult(s, &op, &dwDataTransfer, TRUE, &dwFlags);
-        if (nErr == FALSE) {
-            dwLastErr = WSAGetLastError();
-            DBGLOGW(L"get overlapped recvfrom result error, ret=%d, last err=%d", nErr, dwLastErr);
-            closesocket(s);
-            WSACloseEvent(op.hEvent);
-            return false;
-        }
-        else {
-            DBGLOGW(L"data transferred bytes cnt=%d", dwDataTransfer);
-        }
-
-        WSAResetEvent(op.hEvent);
     }
-    
 
     // clear
     closesocket(s);
-    WSACloseEvent(op.hEvent);
+    CloseHandle(hEvent);
 
     return true;
 }

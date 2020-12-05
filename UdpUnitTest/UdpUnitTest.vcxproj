@@ -154,6 +154,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UdpAsyncSelectNonBlock.h" />
     <ClInclude Include="UdpEventSelectNonBlock.h" />
+    <ClInclude Include="UdpOverlappedCompletionRoutine.h" />
     <ClInclude Include="UdpOverlappedEvent.h" />
     <ClInclude Include="UdpSelectBlock.h" />
     <ClInclude Include="UdpSelectNonBlock.h" />
@@ -169,6 +170,7 @@
     </ClCompile>
     <ClCompile Include="UdpAsyncSelectNonBlock.cpp" />
     <ClCompile Include="UdpEventSelectNonBlock.cpp" />
+    <ClCompile Include="UdpOverlappedCompletionRoutine.cpp" />
     <ClCompile Include="UdpOverlappedEvent.cpp" />
     <ClCompile Include="UdpSelectBlock.cpp" />
     <ClCompile Include="UdpSelectNonBlock.cpp" />
