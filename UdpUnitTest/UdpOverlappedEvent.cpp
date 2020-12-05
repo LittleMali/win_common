@@ -75,7 +75,7 @@ bool UdpOverlappedEventTest()
             DBGLOGW(L"sendto is waiting for io oper");
             DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
         }
-        else {
+        else if (nErr == 0) {
             WSASetEvent(op.hEvent);  // note
             DBGLOGW(L"sendto directly finished, all data has been sent, dwSendCnt=%d", dwSendCnt);
         }
@@ -140,7 +140,7 @@ bool UdpOverlappedEventTest()
             DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
             DBGLOGW(L"check event singled: %d", IsEvnetSingled(op.hEvent));
         }
-        else {
+        else if (nErr == 0) {
             WSASetEvent(op.hEvent);
             DBGLOGW(L"recvfrom directly finished, all data has been recved, dwRecvLen=%d", dwRecvLen);
         }

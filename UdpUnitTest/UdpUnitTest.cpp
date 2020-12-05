@@ -9,6 +9,7 @@
 #include "UdpEventSelectNonBlock.h"
 #include "UdpOverlappedEvent.h"
 #include "UdpOverlappedCompletionRoutine.h"
+#include "UdpIOCP.h"
 
 int main()
 {
@@ -28,7 +29,9 @@ int main()
 
     //bret = UdpOverlappedEventTest();
 
-    bret = UdpOverlappedCompletionRoutineTest();
+    //bret = UdpOverlappedCompletionRoutineTest();
+
+    bret = UdpIOCPTest();
 
     WSACleanup();
 

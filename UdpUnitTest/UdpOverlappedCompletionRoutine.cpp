@@ -31,8 +31,14 @@ void CALLBACK RecvCompletionROUTINE(
     IN DWORD dwFlags)
 {
     // MyOverlapped* pMyOp = (MyOverlapped*)lpOverlapped;
-    // 要扩展op结构保存上下文信息，否则，虽然recv成功了，但是我们不知道这对应哪次send。
+    // 要扩展op结构保存上下文信息，否则，虽然recv成功了，但是在这里我们拿不到回包内容，也不知道这对应哪一次发包。
     DBGLOGW(L"recv completion routine, dwErr=%d, transferred bytes=%d", dwError, cbTransferred);
+    if (lpOverlapped)
+    {
+        DBGLOGW(L"recv completion routine, lpOverlapped->Internal=%d, lpOverlapped->InternalHigh=%d, lpOverlapped->Offset=%d, lpOverlapped->OffsetHigh=%d", 
+            lpOverlapped->Internal, lpOverlapped->InternalHigh,
+            lpOverlapped->Offset, lpOverlapped->OffsetHigh);
+    }
 }
 
 bool UdpOverlappedCompletionRoutineTest()

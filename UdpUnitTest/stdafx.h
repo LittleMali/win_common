@@ -14,6 +14,7 @@
 #include <windows.h>
 #include <WS2tcpip.h>
 
+#include <vector>
 
 // TODO: reference additional headers your program requires here
 
