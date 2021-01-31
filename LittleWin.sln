@@ -31,6 +31,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleLspImpl", "LittleLspI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UdpUnitTest", "UdpUnitTest\UdpUnitTest.vcxproj", "{64299A99-0635-414F-AACB-E648EBC154C3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{43B41865-497C-4E97-A6BE-E4E8BE08C3B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{E9F8DD3B-E86B-4AE1-89FF-74FD4005D10C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -106,5 +110,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{487C6AAA-16E9-4FA1-8E7A-57127AC369B6} = {43B41865-497C-4E97-A6BE-E4E8BE08C3B1}
+		{3EC56E81-ED23-430E-AE3E-7178D20F0553} = {43B41865-497C-4E97-A6BE-E4E8BE08C3B1}
+		{64299A99-0635-414F-AACB-E648EBC154C3} = {E9F8DD3B-E86B-4AE1-89FF-74FD4005D10C}
 	EndGlobalSection
 EndGlobal
