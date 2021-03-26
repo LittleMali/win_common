@@ -130,6 +130,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LnkUtils.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="ProcessUtils.h" />
     <ClInclude Include="Singleton.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LnkUtils.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="ProcessUtils.cpp" />
     <ClCompile Include="stdafx.cpp">
