@@ -1,6 +1,9 @@
 /*/Debug
 /*/Release
+/*/x64/Release
+/*/x64/Debug
 /ipch
+
 
 *.pdb
 *.idb

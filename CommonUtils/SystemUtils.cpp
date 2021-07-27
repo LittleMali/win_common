@@ -34,3 +34,63 @@ BOOL SystemUtils::IsWow64()
     return bIsWow64;
 }
 
+// GetVersionEx is deprecated
+#pragma warning(disable : 4996)
+
+SystemUtils::WinSysVer SystemUtils::GetWinSysVersion()
+{
+    WinSysVer enSysVer = WinSysVer::WinUnknown;
+
+    OSVERSIONINFOEX os = { 0 };
+    os.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+
+    if (!GetVersionEx((OSVERSIONINFO*)&os))
+    {
+        return enSysVer;
+    }
+
+    if (os.dwMajorVersion <= 4)
+    {
+        enSysVer = WinSysVer::WinNt;
+    }
+    else if (os.dwMajorVersion == 5)
+    {
+        if (os.dwMinorVersion == 0)
+        {
+            enSysVer = WinSysVer::Win2000;
+        }
+        else if (os.dwMinorVersion == 1)
+        {
+            enSysVer = WinSysVer::Win2000;
+        }
+        else if (os.dwMinorVersion == 2)
+        {
+            enSysVer = WinSysVer::WinServer2003;
+        }
+    }
+    else if (os.dwMajorVersion == 6)
+    {
+        if (os.dwMinorVersion == 0)
+        {
+            enSysVer = (os.wProductType == VER_NT_WORKSTATION) ? WinSysVer::WinVista : WinSysVer::WinServer2008;
+        }
+        else if (os.dwMinorVersion == 1)
+        {
+            enSysVer = (os.wProductType == VER_NT_WORKSTATION) ? WinSysVer::Win7 : WinSysVer::WinServer2008R2;
+        }
+        else if (os.dwMinorVersion == 2)
+        {
+            enSysVer = (os.wProductType == VER_NT_WORKSTATION) ? WinSysVer::Win8 : WinSysVer::WinServer2012;
+        }
+        else if (os.dwMinorVersion == 3)
+        {
+            enSysVer = (os.wProductType == VER_NT_WORKSTATION) ? WinSysVer::Win81 : WinSysVer::WinServer2012R2;
+        }
+    }
+    else if (os.dwMajorVersion == 10)
+    {
+        enSysVer = (os.wProductType == VER_NT_WORKSTATION) ? WinSysVer::Win10 : WinSysVer::WinServer2016;
+    }
+
+    return enSysVer;
+}

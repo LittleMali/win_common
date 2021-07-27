@@ -6,6 +6,7 @@
 #include "..\CommonUtils\Log.h"
 #include "..\CommonUtils\Singleton.h"
 #include "..\LspOperate\LspOperate.h"
+#include "..\CommonUtils\SystemUtils.h"
 
 int main()
 {
@@ -13,6 +14,7 @@ int main()
 
     DBGLOGW(L"%d", 123);
 
+    SystemUtils::GetWinSysVersion();
 
     getchar();
     return 0;
