@@ -4,6 +4,7 @@
 #include <vector>
 #include <Ws2spi.h>
 #include <algorithm>
+#include <string>
 
 #define LSP_NAME    L"LittleLsp"
 #define LSP_MODULE  L"LittleLsp.dll"
